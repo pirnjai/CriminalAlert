@@ -1,45 +1,50 @@
-/**
- * This file is where you define your application routes and controllers.
- *
- * Start by including the middleware you want to run for every request;
- * you can attach middleware to the pre('routes') and pre('render') events.
- *
- * For simplicity, the default setup for route controllers is for each to be
- * in its own file, and we import all the files in the /routes/views directory.
- *
- * Each of these files is a route controller, and is responsible for all the
- * processing that needs to happen for the route (e.g. loading data, handling
- * form submissions, rendering the view template, etc).
- *
- * Bind each route pattern your application should respond to in the function
- * that is exported from this module, following the examples below.
- *
- * See the Express application routing documentation for more information:
- * http://expressjs.com/api.html#app.VERB
- */
+// const express = require('express');
+// const keystone = require('keystone');
+// // var middleware = require('./middleware');
+// var importRoutes = keystone.importer(__dirname);
 
-var keystone = require('keystone');
-var middleware = require('./middleware');
-var importRoutes = keystone.importer(__dirname);
+// const routes = {
+// 	api: importRoutes('./api'),
+//   };
 
-// Common Middleware
-keystone.pre('routes', middleware.initLocals);
-keystone.pre('render', middleware.flashMessages);
+// // Common Middleware
+// // keystone.pre('routes', middleware.initLocals);
+// // keystone.pre('render', middleware.flashMessages);
 
-// Import Route Controllers
-var routes = {
-	views: importRoutes('./views'),
+// // Import Route Controllers
+// // var routes = {
+// // 	views: importRoutes('./views'),
+// // };
+
+// // Setup Route Bindings
+// exports = module.exports = function (app) {
+// 	app.get('/', routes.api.index);
+// 	// app.get('/blog/:category?', routes.api.blog);
+// 	// app.get('/blog/post/:post', routes.api.post);
+// 	// app.get('/department/:department', routes.api.department);
+// 	app.get('/case/:case', routes.api.case);
+// };
+
+const express = require('express');
+const keystone = require('keystone');
+const importRoutes = keystone.importer(__dirname);
+// const middlewares = require('../middlewares');
+
+const routes = {
+  api: importRoutes('./api'),
 };
 
-// Setup Route Bindings
 exports = module.exports = function (app) {
-	// Views
-	app.get('/', routes.views.index);
-	app.get('/blog/:category?', routes.views.blog);
-	app.get('/blog/post/:post', routes.views.post);
-	app.get('/department/:department', routes.views.department);
-	app.get('/case/:case', routes.views.case);
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-	// app.get('/protected', middleware.requireUser, routes.views.protected);
+  // Server uptime
+  app.get('/', routes.api.index);
+//   app.use('/assets', express.static('assets'));
 
+  // Parking Lots
+//   app.get('/parkinglots/search', routes.api.parkinglots['get.search']);
+//   app.get('/parkinglots/recommended', routes.api.parkinglots['get.recommended']);
+//   app.get('/parkinglots/details/:id', routes.api.parkinglots['get.details']);
+
+  // Articles
+//   app.get('/articles', routes.api.articles['get.articles']);
+//   app.get('/articles/:id', routes.api.articles['get.details']);
 };

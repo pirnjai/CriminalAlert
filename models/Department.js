@@ -1,11 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
-/**
- * Department Model
- * ==========
- */
-
 var Department = new keystone.List('Department', {
 	map: { name: 'name' },
 	autokey: { path: 'slug', from: 'name', unique: true },
